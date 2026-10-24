@@ -6,13 +6,13 @@
     "orientation": "portrait",
     "scheme": "deliveryapp",
     "userInterfaceStyle": "automatic",
-    "ios": {
-    },
+    "ios": {},
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.ihab_01.deliveryapp"
     },
     "web": {
       "output": "static",
