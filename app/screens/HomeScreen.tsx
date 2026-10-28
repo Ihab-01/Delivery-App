@@ -2,6 +2,7 @@ import { Image, View, Text, TextInput, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AdjustmentsVerticalIcon, ChevronDownIcon, MagnifyingGlassIcon, UserIcon } from 'react-native-heroicons/solid'
 import Categories from "../components/Categories";
+import FeatureRows from "../components/FeatureRows";
 
 export default function HomeScreen() {
   return (
@@ -32,9 +33,26 @@ export default function HomeScreen() {
         <AdjustmentsVerticalIcon color='#16c47f'/>
       </View>
       {/* Body */}
-      <ScrollView className="bg-gray-100"
+      <ScrollView className="bg-gray-200"
       contentContainerStyle={{paddingBottom:100}}>
-        <Categories />
+
+      <Categories />
+
+      <FeatureRows 
+      id='1'
+      title='Feature'
+      description='Paid placement from our partners'
+      featureCategories='Features'/>
+      <FeatureRows 
+      id='2'
+      title='Discount'
+      description='Paid placement from our partners'
+      featureCategories='Features'/>
+      <FeatureRows 
+      id='3'
+      title='Offer from near you'
+      description='Paid placement from our partners'
+      featureCategories='Features'/>
       </ScrollView>
     </SafeAreaView>
   );
