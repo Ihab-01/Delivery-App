@@ -15,7 +15,6 @@ const FeatureRows = ({id, title, description}: FeatureRowsProps) => {
   const [featureData, setFeatureData] = useState<any>(null);
 
   useEffect(()=>{
-      console.log("Fetching feature with ID:", id); // 1. Check if ID is received
 
       client.fetch(`
         *[_type == 'feature' && _id == $id]{
@@ -28,12 +27,10 @@ const FeatureRows = ({id, title, description}: FeatureRowsProps) => {
             }
           }
         }[0]`, {id}).then((data)=>{
-          console.log("Data received for feature:", data); // 2. Check what Sanity returned
           setFeatureData(data);
-        }).catch((err) => {
-          console.log("Sanity fetch error:", err);
-        });
-    }, [id]);
+        })
+      },
+       [id]);
 
   return (
     <View>

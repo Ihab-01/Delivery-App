@@ -1,7 +1,19 @@
 import { ScrollView } from 'react-native';
 import CardCategorie from './CardCategorie';
+import { useEffect, useState } from 'react';
+import client, { urlFor } from '../../sanity';
 
 export default function Categories() {
+
+  const [categories, setCategories] = useState<any[]>([]);
+
+  useEffect(() => {
+    client.fetch(`
+      *[_type == 'category']`).then((data) => {
+        setCategories(data);
+      })
+  }, []);
+
   return (
     <ScrollView
       horizontal
@@ -11,30 +23,15 @@ export default function Categories() {
         paddingTop: 10,
       }}
     >
-      <CardCategorie 
-        imageUrl={require('../assets/images/pizza.jpg')} 
-        title="pizza" 
-      />
-      <CardCategorie 
-        imageUrl={require('../assets/images/burger.jpg')} 
-        title="burger" 
-      />
-      <CardCategorie 
-        imageUrl={require('../assets/images/sushi.jpg')} 
-        title="sushi" 
-      />
-      <CardCategorie 
-        imageUrl={require('../assets/images/salad.jpg')} 
-        title="salad" 
-      />
-      <CardCategorie 
-        imageUrl={require('../assets/images/pancake.jpg')} 
-        title="pancake" 
-      />
-      <CardCategorie 
-        imageUrl={require('../assets/images/cupcake.jpg')} 
-        title="cupcake" 
-      />
+      {categories?.map((category) => {
+        return (
+          <CardCategorie 
+            key={category._id}
+            imageUrl={urlFor(category.image).url()}
+            title={category.name}
+          />
+        );
+      })}
     </ScrollView>
   );
 }

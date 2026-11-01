@@ -1,17 +1,20 @@
-import { TouchableOpacity, Text, Image, ImageSourcePropType } from 'react-native';
+import { TouchableOpacity, Text, Image } from 'react-native';
 
 interface CardCategorieProps {
-  imageUrl: ImageSourcePropType;
+  imageUrl: string;
   title: string;
 }
 
-export default function CardCategorie({ imageUrl, title }: CardCategorieProps) {
+const CardCategorie = ({ imageUrl, title }: CardCategorieProps) => {
   return (
-    <TouchableOpacity className='flex items-center mr-2'>
-      <Image source={imageUrl} className="w-20 h-20 rounded" />
-      <Text className=' text-black font-bold'>
-        {title}
-      </Text>
+    <TouchableOpacity className="mr-4 items-center">
+      <Image 
+        source={{ uri: imageUrl }} 
+        className="w-20 h-20 rounded-full" 
+      />
+      <Text className="text-xs font-semibold mt-1">{title}</Text>
     </TouchableOpacity>
   );
-}
+};
+
+export default CardCategorie;
