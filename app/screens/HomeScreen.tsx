@@ -1,10 +1,29 @@
 import { Image, View, Text, TextInput, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { AdjustmentsVerticalIcon, ChevronDownIcon, MagnifyingGlassIcon, UserIcon } from 'react-native-heroicons/solid'
+import { AdjustmentsVerticalIcon, ChevronDownIcon, MagnifyingGlassIcon, UserIcon } from 'react-native-heroicons/solid';
 import Categories from "../components/Categories";
 import FeatureRows from "../components/FeatureRows";
+import { useEffect, useState } from "react";
+import client from '../../sanity';
 
 export default function HomeScreen() {
+
+  const [features, setFeatures] = useState<any[]>([]);
+
+  useEffect(()=>{
+    client.fetch(`
+      *[_type == 'feature']{
+        ...,
+        restaurants[]-> {
+          ...,
+          dishes[]->
+        }
+      }
+    `).then((data)=>{
+      setFeatures(data);
+    })
+  },[]);
+
   return (
     <SafeAreaView>
       {/* Header */}
@@ -22,6 +41,7 @@ export default function HomeScreen() {
         </View>
         <UserIcon size={24} color='#16c47f'/>
       </View>
+      
       {/* Search */}
       <View className="flex-row items-center mx-2 px-4">
         <View className="flex-1 flex-row items-center space-x-2 mx-1 px-2 bg-gray-300">
@@ -32,27 +52,23 @@ export default function HomeScreen() {
         </View>
         <AdjustmentsVerticalIcon color='#16c47f'/>
       </View>
+
       {/* Body */}
       <ScrollView className="bg-gray-200"
       contentContainerStyle={{paddingBottom:100}}>
 
-      <Categories />
+        <Categories />
 
-      <FeatureRows 
-      id='1'
-      title='Feature'
-      description='Paid placement from our partners'
-      featureCategories='Features'/>
-      <FeatureRows 
-      id='2'
-      title='Discount'
-      description='Paid placement from our partners'
-      featureCategories='Features'/>
-      <FeatureRows 
-      id='3'
-      title='Offer from near you'
-      description='Paid placement from our partners'
-      featureCategories='Features'/>
+        {features?.map((feature) => {
+          return (
+            <FeatureRows 
+              key={feature._id}
+              id={feature._id}
+              title={feature.name}
+              description={feature.description}
+            />
+          );
+        })}
       </ScrollView>
     </SafeAreaView>
   );

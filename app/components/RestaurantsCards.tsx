@@ -1,5 +1,6 @@
 import { TouchableOpacity, Text, View , Image, ImageSourcePropType } from 'react-native'
 import { StarIcon, MapPinIcon } from 'react-native-heroicons/solid';
+import { urlFor } from '../../sanity';
 
 interface RestaurentCardsProps {
     id:string;
@@ -28,7 +29,8 @@ const RestaurantsCards = ({
 }: RestaurentCardsProps) => {
 return (
     <TouchableOpacity className='bg-white mr-3 shadow-slate-200 pb-3 rounded-md'>
-      <Image source={img} className="h-36 w-64 rounded-md" />
+      <Image source={{ uri: urlFor(img).url() }} 
+      className="h-36 w-64 rounded-md" />
       <View className='pb-4 px-4'>
         <Text className='font-bold pt-2 text-lg'>{title}</Text>
       </View>
