@@ -2,7 +2,7 @@ import { Image, View, Text, TextInput, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AdjustmentsVerticalIcon, ChevronDownIcon, MagnifyingGlassIcon, UserIcon } from 'react-native-heroicons/solid';
 import Categories from "../components/Categories";
-import FeatureRows from "../components/FeatureRows";
+import FeatureRow from "../components/FeatureRow";
 import { useEffect, useState } from "react";
 import client from '../../sanity';
 
@@ -61,7 +61,7 @@ export default function HomeScreen() {
 
         {features?.map((feature) => {
           return (
-            <FeatureRows 
+            <FeatureRow 
               key={feature._id}
               id={feature._id}
               title={feature.name}

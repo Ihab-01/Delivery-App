@@ -1,8 +1,9 @@
 import { TouchableOpacity, Text, View , Image, ImageSourcePropType } from 'react-native'
 import { StarIcon, MapPinIcon } from 'react-native-heroicons/solid';
 import { urlFor } from '../../sanity';
+import { useRouter } from 'expo-router';
 
-interface RestaurentCardsProps {
+interface RestaurentCardProps {
     id:string;
     img: ImageSourcePropType;
     title: string;
@@ -15,7 +16,7 @@ interface RestaurentCardsProps {
     rating:number;
 }
 
-const RestaurantsCards = ({
+const RestaurantCard = ({
     id,
     img,
     title,
@@ -26,9 +27,31 @@ const RestaurantsCards = ({
     dishes,
     address,
     rating
-}: RestaurentCardsProps) => {
+}: RestaurentCardProps) => {
+
+  const router = useRouter();
+
 return (
-    <TouchableOpacity className='bg-white mr-3 shadow-slate-200 pb-3 rounded-md'>
+    <TouchableOpacity 
+      onPress={() => {
+        router.push({
+          pathname: '../screens/RestaurantScreen',
+          params: {
+            id,
+            title,
+            img: urlFor(img).url(),
+            description,
+            genre,
+            long,
+            lat,
+            address,
+            rating,
+            dishes,
+          }
+        });
+      }}
+      className='bg-white mr-3 shadow-slate-200 pb-3 rounded-md overflow-hidden'
+    >
       <Image source={{ uri: urlFor(img).url() }} 
       className="h-36 w-64 rounded-md" />
       <View className='pb-4 px-4'>
@@ -49,4 +72,4 @@ return (
     </TouchableOpacity>
   )
 }
-export default RestaurantsCards
+export default RestaurantCard

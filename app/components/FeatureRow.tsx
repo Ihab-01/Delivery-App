@@ -1,16 +1,16 @@
 import { View, Text, ScrollView } from 'react-native'
 import { ArrowRightIcon } from 'react-native-heroicons/solid';
-import RestaurantsCards from './RestaurantsCards';
+import RestaurantCard from './RestaurantCard';
 import { useEffect, useState } from 'react';
 import client from '../../sanity';
 
-interface FeatureRowsProps {
+interface FeatureRowProps {
     id: string;
     title: string;
     description: string;
 }
 
-const FeatureRows = ({id, title, description}: FeatureRowsProps) => {
+const FeatureRow = ({id, title, description}: FeatureRowProps) => {
 
   const [featureData, setFeatureData] = useState<any>(null);
 
@@ -48,7 +48,7 @@ const FeatureRows = ({id, title, description}: FeatureRowsProps) => {
         className='pt-3'>
           {featureData?.restaurants?.map((rest: any)=>{
             return(
-              <RestaurantsCards 
+              <RestaurantCard 
               key={rest._id}
               id={rest._id}
               img={rest.image}
@@ -67,4 +67,4 @@ const FeatureRows = ({id, title, description}: FeatureRowsProps) => {
   )
 }
 
-export default FeatureRows
+export default FeatureRow
