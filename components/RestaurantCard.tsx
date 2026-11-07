@@ -1,6 +1,6 @@
 import { TouchableOpacity, Text, View , Image, ImageSourcePropType } from 'react-native'
 import { StarIcon, MapPinIcon } from 'react-native-heroicons/solid';
-import { urlFor } from '../../sanity';
+import { urlFor } from '../sanity';
 import { useRouter } from 'expo-router';
 
 interface RestaurentCardProps {

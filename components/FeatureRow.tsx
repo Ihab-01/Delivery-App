@@ -2,7 +2,7 @@ import { View, Text, ScrollView } from 'react-native'
 import { ArrowRightIcon } from 'react-native-heroicons/solid';
 import RestaurantCard from './RestaurantCard';
 import { useEffect, useState } from 'react';
-import client from '../../sanity';
+import client from '../sanity';
 
 interface FeatureRowProps {
     id: string;

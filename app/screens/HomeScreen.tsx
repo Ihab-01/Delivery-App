@@ -1,8 +1,8 @@
 import { Image, View, Text, TextInput, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AdjustmentsVerticalIcon, ChevronDownIcon, MagnifyingGlassIcon, UserIcon } from 'react-native-heroicons/solid';
-import Categories from "../components/Categories";
-import FeatureRow from "../components/FeatureRow";
+import Categories from "../../components/Categories";
+import FeatureRow from "../../components/FeatureRow";
 import { useEffect, useState } from "react";
 import client from '../../sanity';
 
@@ -29,7 +29,7 @@ export default function HomeScreen() {
       {/* Header */}
       <View className="flex-row items-center pb-2 mx-4 space-x-1 px-4">
         <Image 
-          source={require('../assets/images/avatar.png')}
+          source={require('../../assets/images/avatar.png')}
           className="h-16 w-16 p-4 rounded-full bg-gray-200"
         />
         <View className="flex-1">

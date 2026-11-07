@@ -1,7 +1,7 @@
 import { ScrollView } from 'react-native';
 import CardCategorie from './CardCategorie';
 import { useEffect, useState } from 'react';
-import client, { urlFor } from '../../sanity';
+import client, { urlFor } from '../sanity';
 
 export default function Categories() {
 

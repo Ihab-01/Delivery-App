@@ -2,6 +2,8 @@ import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { useLayoutEffect } from 'react';
 import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router';
 import { ArrowLeftIcon, StarIcon, MapPinIcon, QuestionMarkCircleIcon, ChevronRightIcon } from 'react-native-heroicons/solid';
+import Dishes from '../../components/Dishes';
+import Cart from '../../components/Cart';
 
 function RestaurantScreen() {
   
@@ -19,7 +21,6 @@ function RestaurantScreen() {
     short_description,
     long,
     lat,
-    dishes,
   } = useLocalSearchParams<{
     id: string;
     img: string;
@@ -31,7 +32,6 @@ function RestaurantScreen() {
     short_description?: string;
     long?: string;
     lat?: string;
-    dishes?: any[];
   }>();
   
   useLayoutEffect(() => {
@@ -41,7 +41,9 @@ function RestaurantScreen() {
   }, [navigation]);
 
   return (
-      <ScrollView>
+    <View className='flex-1'>
+      <ScrollView 
+      contentContainerStyle={{paddingBottom: 100}}>
         <View>
           <Image 
             source={{ uri: img }} 
@@ -81,7 +83,10 @@ function RestaurantScreen() {
         <View>
           <Text className='px-4 pt-4 mb-3 text-2xl font-bold'>Menu</Text>
         </View>
+        <Dishes restaurantId={id} />
       </ScrollView>
+      <Cart />
+    </View>
   )
 }
 
