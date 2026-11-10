@@ -4,8 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { XCircleIcon } from 'react-native-heroicons/solid';
 import { removeDishFromCart, selectCartItems, selectCartTotal } from '../features/CartSlice';
 import type { CartItem } from '../features/CartSlice';
+import { useRouter } from 'expo-router';
 
 function Cart() {
+
+  const router = useRouter();
 
   const DELIVERY_FEE = 5.99;
     
@@ -85,10 +88,13 @@ function Cart() {
 
                 {items.length > 0 && (
                     <TouchableOpacity
-                    onPress={() => {}}
-                    className="flex-1 bg-[#00CCBB] p-4 rounded-lg"
+                      onPress={() => {
+                        setVisible(false);
+                        router.push('/screens/OrderScreen');
+                      }}
+                      className="flex-1 bg-[#00CCBB] p-4 rounded-lg"
                     >
-                        <Text className="text-white text-center font-bold text-lg">Order</Text>
+                      <Text className="text-white text-center font-bold text-lg">Order</Text>
                     </TouchableOpacity>
                 )}
             </View>
