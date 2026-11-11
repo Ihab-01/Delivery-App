@@ -3,7 +3,12 @@ import CardCategorie from './CardCategorie';
 import { useEffect, useState } from 'react';
 import client, { urlFor } from '../sanity';
 
-export default function Categories() {
+interface CategoriesProps {
+  selectedId: string | null;
+  onSelect: (id: string | null) => void;
+}
+
+export default function Categories({ selectedId, onSelect }: CategoriesProps) {
 
   const [categories, setCategories] = useState<any[]>([]);
 
@@ -29,6 +34,10 @@ export default function Categories() {
             key={category._id}
             imageUrl={urlFor(category.image).url()}
             title={category.name}
+            selected={selectedId === category._id}
+            onPress={() =>
+              onSelect(selectedId === category._id ? null : category._id)
+            }
           />
         );
       })}

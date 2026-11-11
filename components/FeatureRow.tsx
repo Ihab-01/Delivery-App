@@ -8,9 +8,11 @@ interface FeatureRowProps {
     id: string;
     title: string;
     description: string;
+    searchText: string;
+    categoryId: string | null;
 }
 
-const FeatureRow = ({id, title, description}: FeatureRowProps) => {
+const FeatureRow = ({id, title, description, searchText, categoryId}: FeatureRowProps) => {
 
   const [featureData, setFeatureData] = useState<any>(null);
 
@@ -23,6 +25,7 @@ const FeatureRow = ({id, title, description}: FeatureRowProps) => {
             ...,
             dishes[]->,
             type[]->{
+              _id,
               name
             }
           }
@@ -31,6 +34,22 @@ const FeatureRow = ({id, title, description}: FeatureRowProps) => {
         })
       },
        [id]);
+
+  const search = searchText.trim().toLowerCase();
+
+  const restaurants = (featureData?.restaurants ?? [])
+    .filter(Boolean)
+    .filter((rest: any) => {
+      const matchesCategory =
+        !categoryId || rest.type?.some((t: any) => t._id === categoryId);
+      const matchesSearch =
+        !search ||
+        rest.name?.toLowerCase().includes(search) ||
+        rest.type?.some((t: any) => t.name?.toLowerCase().includes(search));
+      return matchesCategory && matchesSearch;
+    });
+
+  if ((search || categoryId) && restaurants.length === 0) return null;
 
   return (
     <View>
@@ -46,7 +65,7 @@ const FeatureRow = ({id, title, description}: FeatureRowProps) => {
           paddingHorizontal: 15,
         }}
         className='pt-3'>
-          {featureData?.restaurants?.map((rest: any)=>{
+          {restaurants.map((rest: any)=>{
             return(
               <RestaurantCard 
               key={rest._id}
